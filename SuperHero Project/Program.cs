@@ -1,6 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 string name = "SuperCat";
+char gender = 'F';
 int age = 33;
 string power1, power2, power3;
 power1 = "has 9 lives";
@@ -14,5 +15,6 @@ Console.WriteLine(" ===============================");
 Console.WriteLine();
 Console.WriteLine($"    Hero Name: {name}");
 Console.WriteLine($"    Hero Age: " + age);
+Console.WriteLine($"    Hero Gender: {gender}");
 Console.WriteLine($"    Hero Powers: {power1}; {power2}; {power3};");
 Console.WriteLine(" ~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-");
