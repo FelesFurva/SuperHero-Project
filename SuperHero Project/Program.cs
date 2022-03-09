@@ -1,4 +1,5 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿
+// Super hero card
 
 string name = "SuperCat";
 char gender = 'F';
@@ -56,8 +57,6 @@ else
     Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 }
 
-
-
 // Cookie calculation
 
 double cookieCost = 1.29;
@@ -88,3 +87,4 @@ else
 {
     Console.WriteLine($"{name} could have bought the cookies, but chose to steal them instead");
 }
+
