@@ -1,4 +1,4 @@
-﻿
+﻿/*
 // Super hero card
 
 string name = "SuperCat";
@@ -87,4 +87,35 @@ else
 {
     Console.WriteLine($"{name} could have bought the cookies, but chose to steal them instead");
 }
+*/
 
+Console.WriteLine("Please garde how well the hero did on the task!");
+
+char deed = char.ToUpper((Convert.ToChar(Console.ReadLine())));
+
+switch(deed)
+{
+    case 'A':
+    case 'B':
+        Console.WriteLine("Perfect! You are so brave!");
+        break;
+    case 'C':
+        Console.WriteLine("Good! But You can do better!");
+        break;
+    case 'D':
+    case 'E': 
+        Console.WriteLine("It is not good! You should choose your bad or good side!");
+        break;
+    case 'F':
+        Console.WriteLine("You are walking a fine line between Antihero and Hero!");
+        break;
+    case 'G':
+        Console.WriteLine("Bad, you are true villain");
+        break;
+    case 'H':
+        Console.WriteLine("Straight to hell with you!");
+        break;
+    default:
+        Console.WriteLine("No one can be that bad!");
+        break;
+}
