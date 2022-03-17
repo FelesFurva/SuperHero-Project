@@ -1,121 +1,260 @@
-﻿/*
-// Super hero card
+﻿using SuperHero_Project;
 
-string name = "SuperCat";
-char gender = 'F';
-int age = 33;
-string power1, power2, power3;
-power1 = "has 9 lives";
-power2 = "can fight lazer pointers";
-power3 = "walks without making a sound";
-double salary = 1000;
-bool IsEvil = false;
-int deedTimeInHours1, deedTimeInHours2, deedTimeInHours3;
+string[] SuperHero_Name = { "SuperCat", "DogMan", "TestPersone" };
+char[] SuperHero_Gender = { 'F', 'M', '?' };
+int[] SuperHero_Age = { 33, 27, 999 };
+string[,] SuperHero_Powers = { { "has 9 lives", "can fight lazer pointers", "walks without making a sound" },
+                               { "A true Bro", "will find anyting by scent","runs fast!"},
+                               { "always happy to help", "can be the best to test", "always gone when you need and back when you call" } };
 
-Console.WriteLine(" ~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-");
-Console.WriteLine(" ===============================");
-Console.WriteLine("            Hero");
-Console.WriteLine(" ===============================");
-Console.WriteLine();
-Console.WriteLine($"    Hero Name: {name}");
-Console.WriteLine($"    Hero Age: " + age);
-Console.WriteLine($"    Hero Gender: {gender}");
-Console.WriteLine($"    Hero Powers: {power1}; {power2}; {power3};");
-Console.WriteLine(" ~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-");
+double[] SuperHero_Salary = { 0f, 0f, 0f }; //new double[3];
+bool[] SuperHero_IsEvil = { false, false, false };
 
-// Superhero salary calculation
+bool menu1 = true;
 
-var workingHoursInDay = 10;
-var hourlyrate = 10;
-double monthlySalary;
+Console.WriteLine("Wellcome to the SuperHero application \n");
 
-if (workingHoursInDay > 0)
+while (menu1)
 {
-    if (workingHoursInDay <= 8)
+    Console.WriteLine("Enter I if you would like to see all the heros on file");
+    Console.WriteLine("Enter N to create a new file");
+    Console.WriteLine("Enter Q to exit the application");
+
+    char.TryParse(Console.ReadLine(), out char menuItem);
+    menuItem = char.ToUpper(menuItem);
+
+            
+    if (menuItem == 'N')
     {
-        monthlySalary = workingHoursInDay * hourlyrate;
-        Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        Console.WriteLine("Please enter the super hero's name:");
+        string HeroName = Console.ReadLine();
+        SuperHero_Name = SuperHero_Name.Append(HeroName);
+        
+        Console.WriteLine("Please enter the super hero's Gender:");
+        char.TryParse(Console.ReadLine(), out char HeroGender);
+        SuperHero_Gender = SuperHero_Gender.Append(HeroGender);
+        
+        Console.WriteLine("Please enter the super hero's Age:");
+        int.TryParse(Console.ReadLine(), out int HeroAge);
+        SuperHero_Age = SuperHero_Age.Append(HeroAge);
+        
+        Console.WriteLine("Please enter the super hero's super power 1:");
+        string HeroPower1 = Console.ReadLine();
+        string HeroPower2 = Console.ReadLine();
+        string HeroPower3 = Console.ReadLine();
 
-        Console.WriteLine(value: $"     {name} salary is {monthlySalary}");
+        string[] tmp = new string[3];
+        tmp[0] = HeroPower1;
+        tmp[1] = HeroPower2;
+        tmp[2] = HeroPower3;
 
-        Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        SuperHero_Powers = SuperHero_Powers.Append(tmp);
+
+        Console.WriteLine("Is the hero evil?(don't worry, they won't know you told us)");
+        bool.TryParse(Console.ReadLine(), out bool evilGood);
+        SuperHero_IsEvil = SuperHero_IsEvil.Append(evilGood);
+
+        Console.WriteLine($"SuperHero {HeroName} has been added to the raster");
     }
-    if (workingHoursInDay > 8)
+    else if (menuItem == 'Q')
     {
-        monthlySalary = ((8 * hourlyrate) + ((workingHoursInDay - 8)*15));
-        Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-
-        Console.WriteLine(value: $"     {name} salary is {monthlySalary}");
-
-        Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        Console.WriteLine("Goodbye! <3");
+        menu1 = false;
     }
-}
-else
-{
-    Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-    Console.WriteLine("  You cannot work less than 1 hour");
-    Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-}
+    else if (menuItem == 'I')
+    {
+        Console.WriteLine("Please select the file you would like to work with:\n");
+        for (int i = 0; i < SuperHero_Name.Length; i++)
+        {
+            Console.WriteLine($"{(i + 1)} : {SuperHero_Name[i]}");
+        }
 
-// Cookie calculation
+        bool menu2 = true;
 
-double cookieCost = 1.29;
-double boughtCookies = Math.Floor(salary / cookieCost);
-double dailySalary = Math.Round(salary / 30, 2);
+        // user inputs which hero they choose
+        int.TryParse(Console.ReadLine(), out int userChoice);
 
-deedTimeInHours1 = 5;
-deedTimeInHours2 = 2;
-deedTimeInHours3 = 3;
+        while (menu2)
+        {
+            Console.WriteLine("What would you like to do?");
+            Console.WriteLine($"1. View {SuperHero_Name[userChoice - 1]} hero card");
+            Console.WriteLine($"2. Calculate {SuperHero_Name[userChoice - 1]} salary");
+            Console.WriteLine($"3. Rate {SuperHero_Name[userChoice - 1]} performance");
+            Console.WriteLine($"4. Calculate the amount of cookies {SuperHero_Name[userChoice - 1]} can buy");
+            Console.WriteLine($"5. Delete {SuperHero_Name[userChoice - 1]}'s file");
+            Console.WriteLine("6. Go back.");
 
-int totaldeedtime = deedTimeInHours1 + deedTimeInHours2 + deedTimeInHours3;
-int avgdeedtime = totaldeedtime / 3;
-int CookiesPerHour = 5;
-int cookiesgot = CookiesPerHour * totaldeedtime;
+            //user inputs which action they choose
+            int.TryParse(Console.ReadLine(), out int userChoice2);
 
-Console.WriteLine(" ********* FINANCIAL INFO ********************");
-Console.WriteLine($"    {name} spent {totaldeedtime} hours working");
-Console.WriteLine($"    on avarage it takes {name} {avgdeedtime} hours to complete a task");
-Console.WriteLine($"    {name} earned {cookiesgot}");
-Console.WriteLine($"    {name} can buy {boughtCookies} cookies");
-Console.WriteLine($"    {name} earns {dailySalary} daily");
+            switch (userChoice2)
+            {
+                case 1:
 
-if (!IsEvil)
-{
-    Console.WriteLine($"    {name} is ready to protect the city");
-}
-else
-{
-    Console.WriteLine($"{name} could have bought the cookies, but chose to steal them instead");
-}
-*/
+                    // Super hero card 1
+                    Console.WriteLine(" ~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-");
+                    Console.WriteLine("    ===============================");
+                    Console.WriteLine("            Hero");
+                    Console.WriteLine("    ===============================");
+                    Console.WriteLine();
+                    Console.WriteLine($"    Hero Name:     {SuperHero_Name[userChoice - 1]}");
+                    Console.WriteLine($"    Hero Age:      {SuperHero_Age[userChoice - 1]}");
+                    Console.WriteLine($"    Hero Gender:   {SuperHero_Gender[userChoice - 1]}");
 
-Console.WriteLine("Please garde how well the hero did on the task!");
+                    //loops through the available super powers
+                    for (int i = 0; i < SuperHero_Powers.GetLength(1); i++)
+                    {
+                        Console.WriteLine(value: $"    Hero Power:    {SuperHero_Powers[userChoice - 1, i]}");
+                    }
 
-char deed = char.ToUpper((Convert.ToChar(Console.ReadLine())));
+                    Console.WriteLine("");
 
-switch(deed)
-{
-    case 'A':
-    case 'B':
-        Console.WriteLine("Perfect! You are so brave!");
-        break;
-    case 'C':
-        Console.WriteLine("Good! But You can do better!");
-        break;
-    case 'D':
-    case 'E': 
-        Console.WriteLine("It is not good! You should choose your bad or good side!");
-        break;
-    case 'F':
-        Console.WriteLine("You are walking a fine line between Antihero and Hero!");
-        break;
-    case 'G':
-        Console.WriteLine("Bad, you are true villain");
-        break;
-    case 'H':
-        Console.WriteLine("Straight to hell with you!");
-        break;
-    default:
-        Console.WriteLine("No one can be that bad!");
-        break;
+                    //tells if the hero is evil or not
+                    if (!SuperHero_IsEvil[userChoice - 1])
+                    {
+                        Console.WriteLine($"    {SuperHero_Name[userChoice - 1]} is ready to protect the city");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"{SuperHero_Name[userChoice - 1]} could have bought the cookies, but chose to steal them instead");
+                    }
+
+                    Console.WriteLine(" ~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-");
+
+                    break;
+
+                case 2:
+
+                    Console.WriteLine($"Input how many hours {SuperHero_Name[userChoice - 1]} spent on task 1:");
+
+                    int.TryParse(Console.ReadLine(), out int deedTimeInHours1);
+
+                    Console.WriteLine($"Input how many hours {SuperHero_Name[userChoice - 1]} spent on task 2:"); ;
+
+                    int.TryParse(Console.ReadLine(), out int deedTimeInHours2);
+
+                    Console.WriteLine($"Input how many hours {SuperHero_Name[userChoice - 1]} spent on task 3:");
+
+                    int.TryParse(Console.ReadLine(), out int deedTimeInHours3);
+
+                    int workingHoursInDay = deedTimeInHours1 + deedTimeInHours2 + deedTimeInHours3;
+                    int avgdeedtime = workingHoursInDay / 3;
+
+                    Console.WriteLine("Input hourly rate:");
+                    int.TryParse(Console.ReadLine(), out int hourlyrate);
+
+                    double dailysalary;
+                    double monthlySalary;
+
+                    if (workingHoursInDay <= 0)
+                    {
+                        Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                        Console.WriteLine("  You cannot work less than 1 hour");
+                        Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                    }
+                    else if (workingHoursInDay > 24)
+                    {
+                        Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                        Console.WriteLine("  There are only 24 hours in one day!");
+                        Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"    On avarage it takes {SuperHero_Name[userChoice - 1]} {avgdeedtime} hours to complete a task");
+                        Console.WriteLine($"    {SuperHero_Name[userChoice - 1]} spent {workingHoursInDay} hours working");
+
+                        if (workingHoursInDay <= 8)
+                        {
+                            dailysalary = workingHoursInDay * hourlyrate;
+                            Console.WriteLine(value: $"    {SuperHero_Name[userChoice - 1]} earned {dailysalary} today");
+                            monthlySalary = dailysalary * 30;
+                            Console.WriteLine(value: $"    {SuperHero_Name[userChoice - 1]} monthly salary would be {monthlySalary}");
+                            Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                            SuperHero_Salary[userChoice - 1] += monthlySalary;
+                        }
+                        if (workingHoursInDay > 8)
+                        {
+                            dailysalary = ((8 * hourlyrate) + ((workingHoursInDay - 8) * 15));
+                            Console.WriteLine(value: $"    {SuperHero_Name[userChoice - 1]} earned {dailysalary} today");
+                            monthlySalary = dailysalary * 30;
+                            Console.WriteLine(value: $"    {SuperHero_Name[userChoice - 1]} monthly salary would be {monthlySalary}");
+                            Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                            SuperHero_Salary[userChoice - 1] += monthlySalary;
+                        }
+                    }
+                    break;
+
+                case 3:
+                    Console.WriteLine("\n");
+                    Console.WriteLine("Please garde how well the hero did on the task!");
+                    Console.WriteLine("Select a grdae from A to H");
+
+                    char.TryParse(Console.ReadLine(), out char deed);
+                    deed = char.ToUpper(deed);
+                    Console.WriteLine("");
+                    switch (deed)
+                    {
+                        case 'A':
+                        case 'B':
+                            Console.WriteLine("Perfect! You are so brave!");
+                            break;
+                        case 'C':
+                            Console.WriteLine("Good! But You can do better!");
+                            break;
+                        case 'D':
+                        case 'E':
+                            Console.WriteLine("It is not good! You should choose your bad or good side!");
+                            break;
+                        case 'F':
+                            Console.WriteLine("You are walking a fine line between Antihero and Hero!");
+                            break;
+                        case 'G':
+                            Console.WriteLine("Bad, you are true villain");
+                            break;
+                        case 'H':
+                            Console.WriteLine("Straight to hell with you!");
+                            break;
+                        default:
+                            Console.WriteLine("No one can be that bad!");
+                            break;
+                    }
+                    break;
+
+                case 4:
+                    double money = SuperHero_Salary[userChoice - 1];
+                    double cookieCost = 1.29;
+                    double boughtCookies = Math.Floor(money / cookieCost);
+
+                    Console.WriteLine(" ************** FINANCIAL INFO **************");
+                    Console.WriteLine($"    {SuperHero_Name[userChoice - 1]} has {money} in his account \n");
+                    Console.WriteLine($"    {SuperHero_Name[userChoice - 1]} can buy {boughtCookies} cookies \n");
+                    break;
+
+                case 5:
+                    Console.WriteLine("Are you sure you would like to remove SuperHero_Name[userChoice - 1] file?");
+                    Console.WriteLine("Y for yes");
+                    Console.WriteLine("N for no");
+                    char.TryParse(Console.ReadLine(), out char userChoice3);
+
+                    if (userChoice3 == 'Y')
+                    {
+                        SuperHero_Name = SuperHero_Name.Remove(userChoice - 1);
+                        menu2 = false;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Don't worry we won't");
+                    }
+                    break;
+
+                case 6:
+                    menu2 = false;
+                    break;
+
+                default:
+                    Console.WriteLine("Please choose a valid option");
+                    break;
+            }
+        }
+    }
 }
