@@ -107,14 +107,16 @@ namespace SuperHero_Project
 
         public void HeroIndeMenu()
         {
-            Console.WriteLine("What would you like to do?");
+            Console.WriteLine("-------------------------------------------------");
+            Console.WriteLine("What would you like to do?\n");
             Console.WriteLine($"1. View {Nickname} hero card");
             Console.WriteLine($"2. Calculate {Nickname} salary");
             Console.WriteLine($"3. Calculate {Nickname} level");
             Console.WriteLine($"4. Rate {Nickname} performance");
             Console.WriteLine($"5. Calculate the amount of cookies {Nickname} can buy");
             Console.WriteLine($"6. Delete {Nickname}'s file");
-            Console.WriteLine("7. Go back.");
+            Console.WriteLine("7. Go back to Hero List.");
+            Console.WriteLine("8. Go back to main menu");
         }
 
         //Method calculates the level of the super human, depending on deed time
@@ -190,6 +192,60 @@ namespace SuperHero_Project
                     break;
             }
         }
+        public void createHero()
+        {
+            Console.WriteLine("Please enter the super hero's name:");
+            string HeroName = Console.ReadLine();
+
+            Console.WriteLine("Please enter the super hero's Surnamename:");
+            string HeroSurname = Console.ReadLine();
+
+            Console.WriteLine("Please enter the super hero's Nickname:");
+            string HeroNickanme = Console.ReadLine();
+
+            Console.WriteLine("Please enter the super hero's ID:");
+            int.TryParse(Console.ReadLine(), out int HeroID);
+
+            Console.WriteLine("Please enter the super hero's Gender:");
+            char.TryParse(Console.ReadLine(), out char HeroGender);
+
+            Console.WriteLine("Please enter the super hero's Age:");
+            int.TryParse(Console.ReadLine(), out int HeroAge);
+
+            Console.WriteLine("Please enter the super hero's Deed Time:");
+            int.TryParse(Console.ReadLine(), out int HeroDeedTime);
+
+            Console.WriteLine("Please enter super hero's 3 super powers:");
+            string HeroPower1 = Console.ReadLine();
+            string HeroPower2 = Console.ReadLine();
+            string HeroPower3 = Console.ReadLine();
+
+            Console.WriteLine("Please enter the super hero's Salary:");
+            double.TryParse(Console.ReadLine(), out double HeroSalary);
+
+            Console.WriteLine("Please enter the hero LVL");
+            int.TryParse(Console.ReadLine(), out int lVL);
+
+            Console.WriteLine("Is it a Hero - 0 or a Villian - 1?(don't worry, they won't know you told us)");
+            string evilGood = Console.ReadLine();
+
+
+            SuperHero NewHero = new(HeroName,
+                                    HeroSurname,
+                                    HeroNickanme,
+                                    HeroID,
+                                    HeroGender,
+                                    HeroAge,
+                                    evilGood,
+                                    HeroDeedTime,
+                                    HeroPower1,
+                                    HeroPower2,
+                                    HeroPower3,
+                                    HeroSalary,
+                                    lVL);
+        }
+
     }
+
+   
 }
- 

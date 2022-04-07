@@ -11,49 +11,48 @@ namespace SuperHero_Project
         public string Title { get; set; }
         public string City { get; set; }
         public int DistrictID { get; set; }
-        public List <SuperHero> HeroesInTheDistrict { get; set; }
-        public List<SuperVillian> VilliansInTheDistrict { get; set; }
+        public List <SuperHuman> People { get; set; }
 
         public District()
         {
             Title = "Unknown";
             City = "Unknown";
             DistrictID = 0;
-            HeroesInTheDistrict = new List<SuperHero>();
-            VilliansInTheDistrict = new List<SuperVillian>();
+            People = new List<SuperHuman>();
         }
 
-        public District(string title, string city, int districtID, List<SuperHero> heroinDistrict, List<SuperVillian> villiansInTheDistrict)
+        public District(string title, string city, int districtID, List<SuperHuman> people)
         {
             Title = title;
             City = city;
             DistrictID = districtID;
-            HeroesInTheDistrict = heroinDistrict;
-            VilliansInTheDistrict = villiansInTheDistrict;
+            People = people;
         }
 
         public void addHero(SuperHero addedHero)
         {
             Console.WriteLine($"We have added to {Title} hero {addedHero.Nickname}");
-            HeroesInTheDistrict.Add(addedHero);
+            People.Add(addedHero);
         }
 
-        public void removeHero(int position)
+        public void addVillian(SuperVillian addedvillain)
         {
-            Console.WriteLine($"We removed the hero {HeroesInTheDistrict[position].Nickname} from {Title}");
-            HeroesInTheDistrict.RemoveAt(position); 
+            Console.WriteLine($"We have added to {Title} hero {addedvillain.Nickname}");
+            People.Add(addedvillain);
         }
 
-        public float CalculateLVLavarage()
+        public void removePerson()
         {
-            float totalHerolevel = 0f;
-            foreach(SuperHero superHero in HeroesInTheDistrict)
+            for(int i = 0; i < People.Count; i++)
             {
-                totalHerolevel += superHero.LVL;
+                Console.WriteLine($"{i+1}. {People[i].Nickname}");
             }
 
-            float avrgHeroLVL = totalHerolevel / HeroesInTheDistrict.Count;
-            return avrgHeroLVL;
+            int.TryParse(Console.ReadLine(), out int RemovePersone);
+
+            Console.WriteLine($"{People[RemovePersone - 1].Nickname} has been removed from district {Title}");
+            People.RemoveAt(RemovePersone - 1);
+
         }
 
         public void PrintCityInfo()
@@ -77,74 +76,84 @@ namespace SuperHero_Project
 
         public void PrintListOfHeroes()
         {
-            for (int i = 0; i < HeroesInTheDistrict.Count; i++)
+            int count = 0; 
+            foreach (SuperHuman person in People)
             {
-                Console.WriteLine($"{i+1}. {HeroesInTheDistrict[i].Nickname}");
+                if (person.GetType() == typeof(SuperHero))
+                {
+                    count++;
+                    Console.WriteLine($"{count}. {person.Nickname}");
+                }
             }
         }
 
         public void PrintListOfVillians()
         {
-            for (int i = 0; i < VilliansInTheDistrict.Count; i++)
+            int count = 0;
+            foreach (SuperHuman person in People)
             {
-                Console.WriteLine($"{i + 1}. {VilliansInTheDistrict[i].Nickname}");
+                if (person.GetType() == typeof(SuperVillian))
+                {
+                    count++;
+                    Console.WriteLine($"{count}. {person.Nickname}");
+                }
             }
         }
 
-
-        public void createHero(List<SuperHero> heroAccademia)
+        public float CalculateLVLavarage()
         {
-            Console.WriteLine("Please enter the super hero's name:");
-            string HeroName = Console.ReadLine();
+            float totalHerolevel = 0f;
+            int count = 0;
+            foreach (SuperHuman person in People)
+            {
+                if (person.GetType() == typeof(SuperHero))
+                {
+                    count++;
+                    totalHerolevel += person.LVL;
+                }
+            }
 
-            Console.WriteLine("Please enter the super hero's Surnamename:");
-            string HeroSurname = Console.ReadLine();
-
-            Console.WriteLine("Please enter the super hero's Nickname:");
-            string HeroNickanme = Console.ReadLine();
-
-            Console.WriteLine("Please enter the super hero's ID:");
-            int.TryParse(Console.ReadLine(), out int HeroID);
-
-            Console.WriteLine("Please enter the super hero's Gender:");
-            char.TryParse(Console.ReadLine(), out char HeroGender);
-
-            Console.WriteLine("Please enter the super hero's Age:");
-            int.TryParse(Console.ReadLine(), out int HeroAge);
-
-            Console.WriteLine("Please enter the super hero's Deed Time:");
-            int.TryParse(Console.ReadLine(), out int HeroDeedTime);
-
-            Console.WriteLine("Please enter super hero's 3 super powers:");
-            string HeroPower1 = Console.ReadLine();
-            string HeroPower2 = Console.ReadLine();
-            string HeroPower3 = Console.ReadLine();
-
-            Console.WriteLine("Please enter the super hero's Salary:");
-            double.TryParse(Console.ReadLine(), out double HeroSalary);
-
-            Console.WriteLine("Please enter the hero LVL");
-            int.TryParse(Console.ReadLine(), out int lVL);
-
-            Console.WriteLine("Is it a Hero - 0 or a Villian - 1?(don't worry, they won't know you told us)");
-            string evilGood = Console.ReadLine();
-
-
-            SuperHero NewHero = new(HeroName,
-                                    HeroSurname,
-                                    HeroNickanme,
-                                    HeroID,
-                                    HeroGender,
-                                    HeroAge,
-                                    evilGood,
-                                    HeroDeedTime,
-                                    HeroPower1,
-                                    HeroPower2,
-                                    HeroPower3,
-                                    HeroSalary,
-                                    lVL);
-            heroAccademia.Add(NewHero);
+            float avrgHeroLVL = totalHerolevel / count;
+            return avrgHeroLVL;
         }
+
+        public void MaxHeroandVillian()
+        {
+            var MaxHLVL = People.Where(x => x is SuperHero).MaxBy(x => x.LVL);
+            var MaxVLVL = People.Where(x => x is SuperVillian).MaxBy(x => x.LVL);
+
+            Console.WriteLine("\n=============================================================");
+            Console.WriteLine($"The strongest Hero in the {Title} is : {MaxHLVL.Nickname} ");
+            Console.WriteLine("=============================================================");
+            if (MaxVLVL != null)
+            {
+                Console.WriteLine($"The strongest Villian in the {Title} is : {MaxVLVL.Nickname} ");
+            }
+            else
+            {
+                Console.WriteLine($"No villian in sight");
+            }
+        }
+
+        public int CrimeTimeCalculator()
+        {
+            int totalCrime = 0;
+            List<SuperHuman> villians = new List<SuperHuman>();
+            foreach (SuperHuman person in People)
+            {
+                if (person.GetType() == typeof(SuperVillian))
+                {
+                    villians.Add(person);
+                }
+            }
+            foreach (SuperVillian v in villians)
+            {
+                totalCrime += v.CrimeTime;
+            }
+            return totalCrime;
+        }
+
+
 
         public void HeroSearch()
         {
@@ -159,11 +168,11 @@ namespace SuperHero_Project
                 case 1:
 
                     string NameSearch = Console.ReadLine();
-                    var item = HeroesInTheDistrict.Where(found => found.Nickname == NameSearch);
+                    var item = People.Where(found => found.Nickname == NameSearch);
                     if (item != null)
                     {
                         Console.WriteLine("There's a match");
-                        foreach (SuperHero Nickname in item)
+                        foreach (SuperHuman Nickname in item)
                         {
                             Nickname.PrintInfo();
                         }
@@ -176,7 +185,8 @@ namespace SuperHero_Project
 
                 case 2:
                     int.TryParse(Console.ReadLine(), out int IDSearch);
-                    var item2 = HeroesInTheDistrict.Where(found => found.HeroID == IDSearch);
+                    List<SuperHero> Hero = (List<SuperHero>)People.Where(x => x is SuperHero);
+                    var item2 = Hero.Where(found => found.HeroID == IDSearch);
                     if (item2 != null)
                     {
                         Console.WriteLine("There's a match");
@@ -192,11 +202,11 @@ namespace SuperHero_Project
                     break;
                 case 3:
                     int.TryParse(Console.ReadLine(), out int lvlSearch);
-                    var item3 = HeroesInTheDistrict.Where(found => found.LVL == lvlSearch);
+                    var item3 = People.Where(found => found.LVL == lvlSearch);
                     if (item3 != null)
                     {
                         Console.WriteLine("There's a match");
-                        foreach (SuperHero LVL in item3)
+                        foreach (SuperHuman LVL in item3)
                         {
                             LVL.PrintInfo();
                         }
@@ -211,14 +221,14 @@ namespace SuperHero_Project
 
         public void RemoveHero(int i)
         {
-            Console.WriteLine($"Are you sure you would like to remove {HeroesInTheDistrict[i].Nickname} file?");
+            Console.WriteLine($"Are you sure you would like to remove {People[i].Nickname} file?");
             Console.WriteLine("Y for yes");
             Console.WriteLine("N for no");
             char.TryParse(Console.ReadLine(), out char userChoice3);
 
             if (userChoice3 == 'Y')
             {
-                HeroesInTheDistrict.Remove(HeroesInTheDistrict[i]);
+                People.Remove(People[i]);
             }
             else
             {
@@ -228,14 +238,14 @@ namespace SuperHero_Project
 
         public void RemoveVillian(int i)
         {
-            Console.WriteLine($"Are you sure you would like to remove {VilliansInTheDistrict[i].Nickname} file?");
+            Console.WriteLine($"Are you sure you would like to remove {People[i].Nickname} file?");
             Console.WriteLine("Y for yes");
             Console.WriteLine("N for no");
             char.TryParse(Console.ReadLine(), out char userChoice3);
 
             if (userChoice3 == 'Y')
             {
-                VilliansInTheDistrict.Remove(VilliansInTheDistrict[i]);
+                People.Remove(People[i]);
             }
             else
             {

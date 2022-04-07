@@ -55,12 +55,14 @@ namespace SuperHero_Project
 
         public void VillianIndeMenu()
         {
-            Console.WriteLine("What would you like to do?");
+            Console.WriteLine("-------------------------------------------------");
+            Console.WriteLine("What would you like to do?\n");
             Console.WriteLine($"1. View {Nickname} villiane card");
             Console.WriteLine($"2. Calculate {Nickname} level");
             Console.WriteLine($"3. Check {Nickname}'s crime rate");
             Console.WriteLine($"4. Delete {Nickname}'s file");
-            Console.WriteLine("5. Go back.");
+            Console.WriteLine("5. Go back to Villain list");
+            Console.WriteLine("6. Go back to main menu");
         }
 
         public void CalculationCrimeTime()
