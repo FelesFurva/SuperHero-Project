@@ -54,7 +54,7 @@ namespace SuperHero_Project
         }
 
 
-        public virtual void PrintInfo()
+        public virtual void PrintHeroInfo()
         {
             Console.WriteLine(" ~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-");
             Console.WriteLine("   ================================");

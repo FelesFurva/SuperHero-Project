@@ -42,9 +42,9 @@ namespace SuperHero_Project
 
         }
 
-        public override void PrintInfo()
+        public override void PrintHeroInfo()
         {
-            base.PrintInfo();
+            base.PrintHeroInfo();
             Console.WriteLine("   ================================");
             Console.WriteLine($"    HeroID:             {HeroID}");
             Console.WriteLine("   ================================");
@@ -105,7 +105,7 @@ namespace SuperHero_Project
             }
         }
 
-        public void HeroIndeMenu()
+        public void HeroIndexMenu()
         {
             Console.WriteLine("-------------------------------------------------");
             Console.WriteLine("What would you like to do?\n");
@@ -120,7 +120,7 @@ namespace SuperHero_Project
         }
 
         //Method calculates the level of the super human, depending on deed time
-        public void CalculatedLevel()
+        public void CalculateLevel()
         {
             if (DeedTime <= 20)
             {

@@ -43,9 +43,9 @@ namespace SuperHero_Project
 
         }
 
-        public override void PrintInfo()
+        public override void PrintHeroInfo()
         {
-            base.PrintInfo();
+            base.PrintHeroInfo();
             Console.WriteLine("   ================================");
             Console.WriteLine($"    VillainID:             {VillainID}");
             Console.WriteLine("   ================================");
@@ -89,7 +89,7 @@ namespace SuperHero_Project
             Console.WriteLine($"Today, the varage crime rate is: {avgdeedtime} hours");
         }
 
-        public void CalculateVLvl()
+        public void CalculateVillainLvl()
         {
             if (CrimeTime <= 20)
             {

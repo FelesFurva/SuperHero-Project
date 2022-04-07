@@ -25,137 +25,108 @@ HeroAccademia.Add(Bear);
 HeroAccademia.Add(ManBat);
 HeroAccademia.Add(CapedBaldy);
 
-
 List<SuperVillian> VillainLigue = new List<SuperVillian>();
 VillainLigue.Add(CreepyV);
 VillainLigue.Add(GalBot);
 VillainLigue.Add(Rakoon);
 
 
-List<SuperHuman> neighbourhood1 = new List<SuperHuman>();
-neighbourhood1.Add(SuperCat);
-neighbourhood1.Add(DogMan);
-neighbourhood1.Add(TestPersone);
-neighbourhood1.Add(CreepyV);
-neighbourhood1.Add(GalBot);
+List<SuperHuman> purvciems = new List<SuperHuman>();
+purvciems.Add(SuperCat);
+purvciems.Add(DogMan);
+purvciems.Add(TestPersone);
+purvciems.Add(CreepyV);
+purvciems.Add(GalBot);
 
-List<SuperHuman> neighbourhood2 = new List<SuperHuman>();
-neighbourhood2.Add(Secrete);
-neighbourhood2.Add(Bear);
-neighbourhood2.Add(Rakoon);
+List<SuperHuman> ilguciems = new List<SuperHuman>();
+ilguciems.Add(Secrete);
+ilguciems.Add(Bear);
+ilguciems.Add(Rakoon);
 
-List<SuperHuman> neighbourhood3 = new List<SuperHuman>();
-neighbourhood3.Add(ManBat);
-neighbourhood3.Add(CapedBaldy);
+List<SuperHuman> mezciems = new List<SuperHuman>();
+mezciems.Add(ManBat);
+mezciems.Add(CapedBaldy);
 
 
-District Purvciems = new District("Purvciems", "Riga", 1, neighbourhood1);
-District Ilguciems = new District("Ilguciems", "Riga", 2, neighbourhood2);
-District Mezciems = new District("Mezciems", "Riga", 3, neighbourhood3);
+District Purvciems = new District("Purvciems", "Riga", 1, purvciems);
+District Ilguciems = new District("Ilguciems", "Riga", 2, ilguciems);
+District Mezciems = new District("Mezciems", "Riga", 3, mezciems);
 
 List<District> Metropolis = new List<District>();
 Metropolis.Add(Purvciems);
 Metropolis.Add(Ilguciems);
 Metropolis.Add(Mezciems);
+
+Console.WriteLine("Wellcome to the SuperHero application \n");
 while (mainmenu)
 {
-    Console.WriteLine("Wellcome to the SuperHero application \n");
-    Console.WriteLine("-------------------------------------------------");
-    Console.WriteLine("What would you like to do Today?\n");
-    Console.WriteLine("1. View a list of heros");
-    Console.WriteLine("2. View a list of villians");
-    Console.WriteLine("3. View a list of Districts");
-    Console.WriteLine("4. Exit SuperHero application \n");
+    Menu.MainMenu();
     int.TryParse(Console.ReadLine(), out int uChoice);
-
 
     switch (uChoice)
     {
-       
-        
         case 1:
-        while (menu1)
-        {
-            bool Heromenu = true;
-
-            Console.WriteLine("-------------------------------------------------");
-            Console.WriteLine("The following Heros are on file\n");
-            for (int i = 0; i < HeroAccademia.Count; i++)
+            do
             {
-                Console.WriteLine($"{i + 1}. {HeroAccademia[i].Nickname}");
-            }
-            // user inputs which hero they choose
+                bool Heromenu = true;
 
-            int.TryParse(Console.ReadLine(), out int HeroIndex);
-
-            while (Heromenu)
-            {
-                //Shows possible choices of actions which can be preformed with a hero
-                HeroAccademia[HeroIndex - 1].HeroIndeMenu();
-
-                //user inputs which action they choose
-                int.TryParse(Console.ReadLine(), out int HmenuChoice);
-
-                switch (HmenuChoice)
+                Console.WriteLine("-------------------------------------------------");
+                Console.WriteLine("The following Heros are on file\n");
+                for (int i = 0; i < HeroAccademia.Count; i++)
                 {
-                    case 1:
-
-                        //prints out the super hero card
-                        HeroAccademia[HeroIndex - 1].PrintInfo();
-                        break;
-
-                    case 2:
-
-                        //calculate salary and add earned money to hero account
-                        HeroAccademia[HeroIndex - 1].SalaryCalculation();
-                        break;
-
-                    case 3:
-
-                        //calculate hero level, based on the amount of time spent on deeds
-                        HeroAccademia[HeroIndex - 1].CalculatedLevel();
-                        break;
-
-                    case 4:
-
-                        //Mark hero from A to F
-                        HeroAccademia[HeroIndex - 1].GivingHeroMarks();
-                        break;
-
-                    case 5:
-
-                        //provides heros savings and the possible cookie gains
-                        HeroAccademia[HeroIndex - 1].FinancialInfo();
-                        break;
-
-                    case 6:
-
-                        //removing the hero from the district
-                        HeroAccademia.RemoveAt(HeroIndex - 1);
-                        Heromenu = false;
-                        break;
-
-
-                    case 7:
-                        Heromenu = false;
-                        break;
-                    case 8:
-                        Heromenu = false;
-                        menu1 = false;
-                        break;
-
-                    default:
-                        Console.WriteLine("Please choose a valid option");
-                        break;
+                    Console.WriteLine($"{i + 1}. {HeroAccademia[i].Nickname}");
                 }
-            }
-        }
+                
+                // user inputs which hero they choose
+                int.TryParse(Console.ReadLine(), out int HeroIndex);
+
+                do
+                {
+                    HeroAccademia[HeroIndex - 1].HeroIndexMenu();
+
+                    //user inputs which action they choose
+                    int.TryParse(Console.ReadLine(), out int HmenuChoice);
+
+                    switch (HmenuChoice)
+                    {
+                        case 1:
+                            HeroAccademia[HeroIndex - 1].PrintHeroInfo();
+                            break;
+                        case 2:
+                            HeroAccademia[HeroIndex - 1].SalaryCalculation();
+                            break;
+                        case 3:
+                            HeroAccademia[HeroIndex - 1].CalculateLevel();
+                            break;
+                        case 4:
+                            HeroAccademia[HeroIndex - 1].GivingHeroMarks();
+                            break;
+                        case 5:
+                            HeroAccademia[HeroIndex - 1].FinancialInfo();
+                            break;
+                        case 6:
+                            HeroAccademia.RemoveAt(HeroIndex - 1);
+                            Heromenu = false;
+                            break;
+                        case 7:
+                            Heromenu = false;
+                            break;
+                        case 8:
+                            Heromenu = false;
+                            menu1 = false;
+                            break;
+                        default:
+                            Console.WriteLine("Please choose a valid option");
+                            break;
+                    }
+                } while (Heromenu);
+            } while (menu1);
             break; 
 
            case 2:
-            while (menu1)
+            do
             {
-                bool Vilmenu= true;
+                bool Vilmenu = true;
                 Console.WriteLine("-------------------------------------------------");
                 Console.WriteLine("The following Villians are on file\n");
                 for (int i = 0; i < VillainLigue.Count; i++)
@@ -165,8 +136,7 @@ while (mainmenu)
 
                 // user inputs which villian they choose
                 int.TryParse(Console.ReadLine(), out int VilIndex);
-
-                while (Vilmenu)
+                do
                 {
                     //user chooses what to do with the Villian
                     VillainLigue[VilIndex - 1].VillianIndeMenu();
@@ -175,10 +145,10 @@ while (mainmenu)
                     switch (userChoice2)
                     {
                         case 1:
-                            VillainLigue[VilIndex - 1].PrintInfo();
+                            VillainLigue[VilIndex - 1].PrintHeroInfo();
                             break;
                         case 2:
-                            VillainLigue[VilIndex - 1].CalculateVLvl();
+                            VillainLigue[VilIndex - 1].CalculateVillainLvl();
                             break;
                         case 3:
                             VillainLigue[VilIndex - 1].CalculationCrimeTime();
@@ -186,6 +156,7 @@ while (mainmenu)
                         case 4:
                             Purvciems.RemoveVillian(VilIndex - 1);
                             Vilmenu = false;
+                            menu1 = false;
                             break;
                         case 5:
                             Vilmenu = false;
@@ -194,13 +165,16 @@ while (mainmenu)
                             menu1 = false;
                             Vilmenu = false;
                             break;
+                        default:
+                            Console.WriteLine("Please select a valid option.");
+                            break;
                     }
-                }
-            }
+                } while (Vilmenu);
+            } while (menu1);
             break;
 
         case 3:
-            while (menu1)
+            do
             {
                 Console.WriteLine("-------------------------------------------------");
                 Console.WriteLine("Please select the district you would like to view: \n");
@@ -210,16 +184,9 @@ while (mainmenu)
                 }
                 bool Distmenu = true;
                 int.TryParse(Console.ReadLine(), out int DistrictChoice);
-                while (Distmenu)
+                do
                 {
-                    Console.WriteLine("-------------------------------------------------");
-                    Console.WriteLine($"Enter D to view {Metropolis[DistrictChoice - 1].Title} file");
-                    Console.WriteLine($"Enter N to add a hero to {Metropolis[DistrictChoice - 1].Title}");
-                    Console.WriteLine($"Enter S to search {Metropolis[DistrictChoice - 1].Title}");
-                    Console.WriteLine($"Enter R to remove people from {Metropolis[DistrictChoice - 1].Title}");
-                    Console.WriteLine($"Enter V to let a villain loose on the city!");
-                    Console.WriteLine($"Enter L to go back to district list");
-                    Console.WriteLine($"Enter M to main menu");
+                    Metropolis[DistrictChoice - 1].DistrictMenu();
 
                     char.TryParse(Console.ReadLine(), out char menuItem);
                     menuItem = char.ToUpper(menuItem);
@@ -229,8 +196,8 @@ while (mainmenu)
                         case 'D':
                             Metropolis[DistrictChoice - 1].PrintCityInfo();
                             Console.WriteLine($"\nThe avarage lvl of heros in the district {Metropolis[DistrictChoice - 1].Title} is: {Metropolis[DistrictChoice - 1].CalculateLVLavarage()}");
-                            Metropolis[DistrictChoice - 1].MaxHeroandVillian();
-                            Console.WriteLine($"The total amoutn of crime time int {Metropolis[DistrictChoice - 1].Title} is: {Metropolis[DistrictChoice - 1].CrimeTimeCalculator()}");
+                            Metropolis[DistrictChoice - 1].MaxHeroandVillianLVL();
+                            Metropolis[DistrictChoice - 1].CrimeTimeCalculator();
                             break;
 
                         case 'N':
@@ -271,13 +238,28 @@ while (mainmenu)
                             menu1 = false;
                             Distmenu = false;
                             break;
-
                     }
-                }
-            }
+                } while (Distmenu);
+            } while (menu1);
             break;
 
         case 4:
+                string districtName = "";
+                float MaxAvrgLVL = 0f;
+                foreach (District district in Metropolis)
+                {
+                    float AvrgLVL = district.CalculateLVLavarage();
+                    if (AvrgLVL > MaxAvrgLVL)
+                    {
+                        MaxAvrgLVL = AvrgLVL;
+                        districtName = district.Title;
+                    }
+                }
+                Console.WriteLine($"\nThe maximum Hero LVL avarage amoung districts is: {MaxAvrgLVL}");
+                Console.WriteLine($"The district with the heights hero LVL avarage is: {districtName}");
+            break;
+
+        case 5:
             mainmenu = false;
             break;
     }

@@ -117,17 +117,17 @@ namespace SuperHero_Project
             return avrgHeroLVL;
         }
 
-        public void MaxHeroandVillian()
+        public void MaxHeroandVillianLVL()
         {
-            var MaxHLVL = People.Where(x => x is SuperHero).MaxBy(x => x.LVL);
-            var MaxVLVL = People.Where(x => x is SuperVillian).MaxBy(x => x.LVL);
+            var MaxHeroLVL = People.Where(x => x is SuperHero).MaxBy(x => x.LVL);
+            var MaxVillainLVL = People.Where(x => x is SuperVillian).MaxBy(x => x.LVL);
 
             Console.WriteLine("\n=============================================================");
-            Console.WriteLine($"The strongest Hero in the {Title} is : {MaxHLVL.Nickname} ");
+            Console.WriteLine($"The strongest Hero in the {Title} is : {MaxHeroLVL.Nickname} ");
             Console.WriteLine("=============================================================");
-            if (MaxVLVL != null)
+            if (MaxVillainLVL != null)
             {
-                Console.WriteLine($"The strongest Villian in the {Title} is : {MaxVLVL.Nickname} ");
+                Console.WriteLine($"The strongest Villian in the {Title} is : {MaxVillainLVL.Nickname} ");
             }
             else
             {
@@ -135,22 +135,27 @@ namespace SuperHero_Project
             }
         }
 
-        public int CrimeTimeCalculator()
+        public void CrimeTimeCalculator()
         {
             int totalCrime = 0;
-            List<SuperHuman> villians = new List<SuperHuman>();
+            int MaxCrimeTime = 0;
+            string VillianName = "";
             foreach (SuperHuman person in People)
             {
-                if (person.GetType() == typeof(SuperVillian))
+                if (person is SuperVillian)
                 {
-                    villians.Add(person);
+                    SuperVillian superVillian = (SuperVillian)person;
+
+                    totalCrime += superVillian.CrimeTime;
+                    if (superVillian.CrimeTime > MaxCrimeTime)
+                    {
+                        MaxCrimeTime = superVillian.CrimeTime;
+                        VillianName = superVillian.Nickname;
+                    }
                 }
             }
-            foreach (SuperVillian v in villians)
-            {
-                totalCrime += v.CrimeTime;
-            }
-            return totalCrime;
+            Console.WriteLine($"The total crime time in the district is {totalCrime}");
+            Console.WriteLine($"The villian who comited most crimes is {VillianName}");
         }
 
 
@@ -163,18 +168,27 @@ namespace SuperHero_Project
             Console.WriteLine("3. Search by LVL");
             int.TryParse(Console.ReadLine(), out int searchChoice);
 
+            List<SuperHuman> hero = new List<SuperHuman>();
+            foreach (SuperHuman person in People)
+            {
+                if (person.GetType() == typeof(SuperHero))
+                {
+                    hero.Add(person);
+                }
+            }
+
             switch (searchChoice)
             {
                 case 1:
 
                     string NameSearch = Console.ReadLine();
-                    var item = People.Where(found => found.Nickname == NameSearch);
+                    var item = hero.Where(found => found.Nickname == NameSearch);
                     if (item != null)
                     {
                         Console.WriteLine("There's a match");
                         foreach (SuperHuman Nickname in item)
                         {
-                            Nickname.PrintInfo();
+                            Nickname.PrintHeroInfo();
                         }
                     }
                     else
@@ -185,30 +199,32 @@ namespace SuperHero_Project
 
                 case 2:
                     int.TryParse(Console.ReadLine(), out int IDSearch);
-                    List<SuperHero> Hero = (List<SuperHero>)People.Where(x => x is SuperHero);
-                    var item2 = Hero.Where(found => found.HeroID == IDSearch);
-                    if (item2 != null)
+
+                    int count = 0;
+                    foreach (SuperHero h in hero)
                     {
-                        Console.WriteLine("There's a match");
-                        foreach (SuperHero heroID in item2)
-                        {
-                            heroID.PrintInfo();
-                        }
+                  
+                            if (h.HeroID == IDSearch)
+                            {
+                                h.PrintHeroInfo();
+                                count++;
+                            }
                     }
-                    else
+                    if (count == 0)
                     {
                         Console.WriteLine("No match found");
                     }
+
                     break;
                 case 3:
                     int.TryParse(Console.ReadLine(), out int lvlSearch);
-                    var item3 = People.Where(found => found.LVL == lvlSearch);
+                    var item3 = hero.Where(found => found.LVL == lvlSearch);
                     if (item3 != null)
                     {
                         Console.WriteLine("There's a match");
                         foreach (SuperHuman LVL in item3)
                         {
-                            LVL.PrintInfo();
+                            LVL.PrintHeroInfo();
                         }
                     }
                     else
@@ -252,5 +268,17 @@ namespace SuperHero_Project
                 Console.WriteLine("Don't worry, we won't tell you tried");
             }
         }
+        public void DistrictMenu()
+        {
+            Console.WriteLine("-------------------------------------------------");
+            Console.WriteLine($"Enter D to view {Title} file");
+            Console.WriteLine($"Enter N to add a hero to {Title}");
+            Console.WriteLine($"Enter S to search {Title}");
+            Console.WriteLine($"Enter R to remove people from {Title}");
+            Console.WriteLine($"Enter V to let a villain loose on the city!");
+            Console.WriteLine($"Enter L to go back to district list");
+            Console.WriteLine($"Enter M to main menu");
+        }
+    
     }
 }
