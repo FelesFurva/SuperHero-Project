@@ -6,39 +6,29 @@ using System.Threading.Tasks;
 
 namespace SuperHero_Project
 {
-    internal class SuperVillian : SuperHuman
+    internal class Villian : Person
     {
-        public string GoodEvil { get; set; }
-        public int CrimeTime { get; set; }
+        public int CrimeCount { get; set; }
         public int VillainID { get; set; }
 
 
-        public SuperVillian()
+        public Villian()
         {
 
-            GoodEvil = "We have yet to see";
-            CrimeTime = 0;
             VillainID = 0;
 
         }
 
-        public SuperVillian(string Name,
+        public Villian(string Name,
                          string Surname,
                          string Nickname,
                          int villainID,
-                         char Gender,
                          int Age,
-                         string goodEvil,
-                         int crimeTime,
-                         string Powers1,
-                         string Powers2,
-                         string Powers3,
                          double Salary,
-                         int LVL) : base(Name, Surname, Nickname, Gender, Age, Powers1, Powers2, Powers3, Salary, LVL)
+                         int LVL,
+                         string PersonType) : base(Name, Surname, Nickname, Age, Salary, LVL, PersonType)
         {
 
-            GoodEvil = goodEvil;
-            CrimeTime = crimeTime;
             VillainID = villainID;
 
         }
@@ -50,32 +40,32 @@ namespace SuperHero_Project
             Console.WriteLine($"    VillainID:             {VillainID}");
             Console.WriteLine("   ================================");
             //tells if the hero is evil or not
-            Console.WriteLine($"    {Nickname} could have bought the cookies, but chose to steal them instead");
+            Console.WriteLine($"    {PersonNickname} could have bought the cookies, but chose to steal them instead");
         }
 
         public void VillianIndeMenu()
         {
             Console.WriteLine("-------------------------------------------------");
             Console.WriteLine("What would you like to do?\n");
-            Console.WriteLine($"1. View {Nickname} villiane card");
-            Console.WriteLine($"2. Calculate {Nickname} level");
-            Console.WriteLine($"3. Check {Nickname}'s crime rate");
-            Console.WriteLine($"4. Delete {Nickname}'s file");
+            Console.WriteLine($"1. View {PersonNickname} villiane card");
+            Console.WriteLine($"2. Calculate {PersonNickname} level");
+            Console.WriteLine($"3. Check {PersonNickname}'s crime rate");
+            Console.WriteLine($"4. Delete {PersonNickname}'s file");
             Console.WriteLine("5. Go back to Villain list");
             Console.WriteLine("6. Go back to main menu");
         }
 
         public void CalculationCrimeTime()
         {
-            Console.WriteLine($"Input how many hours {Nickname} spent on task 1:");
+            Console.WriteLine($"Input how many hours {PersonNickname} spent on task 1:");
 
             int.TryParse(Console.ReadLine(), out int crimetime1);
 
-            Console.WriteLine($"Input how many hours {Nickname} spent on task 2:"); ;
+            Console.WriteLine($"Input how many hours {PersonNickname} spent on task 2:"); ;
 
             int.TryParse(Console.ReadLine(), out int crimetime2);
 
-            Console.WriteLine($"Input how many hours {Nickname} spent on task 3:");
+            Console.WriteLine($"Input how many hours {PersonNickname} spent on task 3:");
 
             int.TryParse(Console.ReadLine(), out int crimetime3);
 
@@ -83,33 +73,33 @@ namespace SuperHero_Project
 
             int avgdeedtime = TotalCrimeTime / 3;
 
-            CrimeTime += TotalCrimeTime;
+            CrimeCount += TotalCrimeTime;
 
-            Console.WriteLine($"{Nickname} spent {CrimeTime} hours doing crimes");
+            Console.WriteLine($"{PersonNickname} spent {CrimeCount} hours doing crimes");
             Console.WriteLine($"Today, the varage crime rate is: {avgdeedtime} hours");
         }
 
         public void CalculateVillainLvl()
         {
-            if (CrimeTime <= 20)
+            if (CrimeCount <= 20)
             {
-                LVL = 1;
+                PersonLVL = 1;
                 Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-                Console.WriteLine($"  {Nickname} current level is 1");
+                Console.WriteLine($"  {PersonNickname} current level is 1");
                 Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             }
-            else if (CrimeTime > 20 && CrimeTime < 40)
+            else if (CrimeCount > 20 && CrimeCount < 40)
             {
-                LVL = 2;
+                PersonLVL = 2;
                 Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-                Console.WriteLine($"  {Nickname} current hero level is 2");
+                Console.WriteLine($"  {PersonNickname} current hero level is 2");
                 Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             }
-            else if (CrimeTime >= 40)
+            else if (CrimeCount >= 40)
             {
-                LVL = 3;
+                PersonLVL = 3;
                 Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-                Console.WriteLine($"  {Nickname} current hero level is 3");
+                Console.WriteLine($"  {PersonNickname} current hero level is 3");
                 Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             }
         }

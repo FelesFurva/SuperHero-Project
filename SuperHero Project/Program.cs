@@ -1,61 +1,68 @@
 ﻿using SuperHero_Project;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 
 bool mainmenu = true;
 bool menu1 = true;
 
-SuperHero SuperCat = new("Diana", "Walker", "SuperCat", 1, 'F', 33, "Hero", 33, "has 9 lives", "can fight lazer pointers", "walks without making a sound", 500, 2);
-SuperHero DogMan = new("James", "Runner", "DogMan", 2, 'M', 27, "Hero", 17, "A true Bro", "will find anyting by scent", "runs fast!", 300, 1);
-SuperHero TestPersone = new("Mystery", "Jhones", "TestPersone", 3, '?', 999, "Hero", 50, "always happy to help", "can be the best to test", "here and back again", 1000, 3);
-SuperHero Secrete = new("No one knows", "A mystery", "Secrete", 4, '?', 40, "Hero", 300, "covered in shadows", "moves silently", "always in a scarf", 10000, 3);
-SuperHero Bear = new("Mikhael", "Grawl", "Bear", 5, 'M', 10, "Hero", 10, "is adorable", "extra strong", "thick skin", 500, 1);
-SuperHero ManBat = new("Bruce", "Whine", "ManBat", 6, 'M', 55, "Hero", 999, "money", "graping hook", "detective work", 100000, 3);
-SuperHero CapedBaldy = new("Saitama", "Garou", "CapedBaldy", 7, 'M', 25, "Hero", 999, "Supernatural Reflexes and Senses", "Invulnerability", "Punches really hard", 0, 3);
+List<string> PowersSuperCat = new List<string>();
+PowersSuperCat.Add("has 9 lives");
+PowersSuperCat.Add("can fight lazer pointers");
+PowersSuperCat.Add("walks without making a sound");
+List<string> PowersDogMan = new List<string>();
+PowersSuperCat.Add("A true Bro");
+PowersSuperCat.Add("will find anyting by scent");
+PowersSuperCat.Add("runs fast!");
+List<string> PowersTestPersone = new List<string>();
+PowersSuperCat.Add("always happy to help");
+PowersSuperCat.Add("can be the best to test");
+PowersSuperCat.Add("here and back again");
+List<string> PowersSecrete = new List<string>();
+PowersSuperCat.Add("covered in shadows");
+PowersSuperCat.Add("moves silently");
+PowersSuperCat.Add("always in a scarf");
+List<string> PowersBear = new List<string>();
+PowersSuperCat.Add("is adorable");
+PowersSuperCat.Add("extra strong");
+PowersSuperCat.Add("thick skin");
+List<string> PowersManBat = new List<string>();
+PowersSuperCat.Add("money");
+PowersSuperCat.Add("graping hook");
+PowersSuperCat.Add("detective work");
+List<string> PowersCapedBaldy = new List<string>();
+PowersSuperCat.Add("Supernatural Reflexes and Senses");
+PowersSuperCat.Add("Invulnerability");
+PowersSuperCat.Add("Punches really hard");
 
-SuperVillian CreepyV = new("Val", "Parker", "CreepyV", 1, 'F', 20, "Villian", 15, "Stalks around the cookie pile", "steps over sleeping ppl", "cracks mirrors", 600, 3);
-SuperVillian GalBot = new("Ricky", "Hart", "GalBot", 2, 'F', 25, "Villian", 17, "Insults", "Evil eye", "Spooky haul", 700, 1);
-SuperVillian Rakoon = new("Mark", "Brown", "Rakoon", 3, 'M', 20, "Villian", 21, "Trash attack", "Flipping birds", "Grauwl", 500, 2);
+List<string> PowersGalBot = new();
+PowersGalBot.Add("Insults");
+PowersGalBot.Add("Evil eye");
+PowersGalBot.Add("Spooky haul");
+List<string> PowersRakoon = new List<string>();
+PowersRakoon.Add("Trash attack");
+PowersRakoon.Add("Flipping birds");
+PowersRakoon.Add("Grauwl");
 
-List<SuperHero> HeroAccademia = new List<SuperHero>();
-HeroAccademia.Add(SuperCat);
-HeroAccademia.Add(DogMan);
-HeroAccademia.Add(TestPersone);
-HeroAccademia.Add(Secrete);
-HeroAccademia.Add(Bear);
-HeroAccademia.Add(ManBat);
-HeroAccademia.Add(CapedBaldy);
-
-List<SuperVillian> VillainLigue = new List<SuperVillian>();
-VillainLigue.Add(CreepyV);
-VillainLigue.Add(GalBot);
-VillainLigue.Add(Rakoon);
-
-
-List<SuperHuman> purvciems = new List<SuperHuman>();
-purvciems.Add(SuperCat);
-purvciems.Add(DogMan);
-purvciems.Add(TestPersone);
-purvciems.Add(CreepyV);
-purvciems.Add(GalBot);
-
-List<SuperHuman> ilguciems = new List<SuperHuman>();
-ilguciems.Add(Secrete);
-ilguciems.Add(Bear);
-ilguciems.Add(Rakoon);
-
-List<SuperHuman> mezciems = new List<SuperHuman>();
-mezciems.Add(ManBat);
-mezciems.Add(CapedBaldy);
+//Villian GalBot = new("Ricky", "Hart", "GalBot", 2, 25, "Villian", 17, PowersGalBot, 700, 1);
+//Villian Rakoon = new("Mark", "Brown", "Rakoon", 3, 20, "Villian", 21, PowersRakoon, 500, 2);
 
 
-District Purvciems = new District("Purvciems", "Riga", 1, purvciems);
-District Ilguciems = new District("Ilguciems", "Riga", 2, ilguciems);
-District Mezciems = new District("Mezciems", "Riga", 3, mezciems);
+DBConnection dBConnection = new DBConnection();
+PersonManager personManager = new PersonManager(dBConnection);
+PowersManager powersManager = new PowersManager(dBConnection);
+DistrictManager districtManager = new DistrictManager(dBConnection, personManager);
 
-List<District> Metropolis = new List<District>();
-Metropolis.Add(Purvciems);
-Metropolis.Add(Ilguciems);
-Metropolis.Add(Mezciems);
+var Riga = districtManager.GetAllDistricts();
+districtManager.GetPeoplebyDistrict(Riga);
+
+var AllHeros = personManager.GetAllHerosorVillains("Hero");
+List<Hero> HeroAccademia = AllHeros.OfType<Hero>().ToList();
+
+var AllVillians = personManager.GetAllHerosorVillains("Villian");
+List<Villian> VillainLigue = AllVillians.OfType<Villian>().ToList();
+
+
+ 
 
 Console.WriteLine("Wellcome to the SuperHero application \n");
 while (mainmenu)
@@ -72,9 +79,10 @@ while (mainmenu)
 
                 Console.WriteLine("-------------------------------------------------");
                 Console.WriteLine("The following Heros are on file\n");
-                for (int i = 0; i < HeroAccademia.Count; i++)
+
+                for (int i = 0; i < AllHeros.Count; i++)
                 {
-                    Console.WriteLine($"{i + 1}. {HeroAccademia[i].Nickname}");
+                    Console.WriteLine($"{i + 1}. {AllHeros[i].PersonNickname}");
                 }
                 
                 // user inputs which hero they choose
@@ -87,16 +95,30 @@ while (mainmenu)
                     //user inputs which action they choose
                     int.TryParse(Console.ReadLine(), out int HmenuChoice);
 
+                    DeedManager deedManager = new DeedManager(dBConnection);
+                    int DeedCount = 0;
+                    List<Deed> HeroDeeds = deedManager.GetDeedbyID(HeroAccademia[HeroIndex - 1].HeroID);
+                    foreach (var deed in HeroDeeds)
+                    {
+                        DeedCount++;
+                    }
+
                     switch (HmenuChoice)
                     {
                         case 1:
                             HeroAccademia[HeroIndex - 1].PrintHeroInfo();
+                            
+                            List<SuperPowers> HeroPowers = powersManager.GetHeroPowersbyID(HeroAccademia[HeroIndex - 1].HeroID);
+                            foreach(var power in HeroPowers)
+                            {
+                                Console.WriteLine($"    {power.PowerName} : {power.PowerDescription}");
+                            }
                             break;
                         case 2:
-                            HeroAccademia[HeroIndex - 1].SalaryCalculation();
+                            HeroAccademia[HeroIndex - 1].SalaryCalculation(DeedCount);
                             break;
                         case 3:
-                            HeroAccademia[HeroIndex - 1].CalculateLevel();
+                            HeroAccademia[HeroIndex - 1].CalculateLevel(DeedCount);
                             break;
                         case 4:
                             HeroAccademia[HeroIndex - 1].GivingHeroMarks();
@@ -129,9 +151,9 @@ while (mainmenu)
                 bool Vilmenu = true;
                 Console.WriteLine("-------------------------------------------------");
                 Console.WriteLine("The following Villians are on file\n");
-                for (int i = 0; i < VillainLigue.Count; i++)
+                for (int i = 0; i < AllVillians.Count; i++)
                 {
-                    Console.WriteLine($"{i + 1}. {VillainLigue[i].Nickname}");
+                    Console.WriteLine($"{i + 1}. {AllVillians[i].PersonNickname}");
                 }
 
                 // user inputs which villian they choose
@@ -146,6 +168,12 @@ while (mainmenu)
                     {
                         case 1:
                             VillainLigue[VilIndex - 1].PrintHeroInfo();
+                            
+                            List<SuperPowers> VillainPowers = powersManager.GetHeroPowersbyID(VillainLigue[VilIndex - 1].VillainID);
+                            foreach (var power in VillainPowers)
+                            {
+                                Console.WriteLine($"{power.PowerName} : {power.PowerDescription}");
+                            }
                             break;
                         case 2:
                             VillainLigue[VilIndex - 1].CalculateVillainLvl();
@@ -154,7 +182,7 @@ while (mainmenu)
                             VillainLigue[VilIndex - 1].CalculationCrimeTime();
                             break;
                         case 4:
-                            Purvciems.RemoveVillian(VilIndex - 1);
+                            //Purvciems.RemoveVillian(VilIndex - 1);
                             Vilmenu = false;
                             menu1 = false;
                             break;
@@ -178,26 +206,37 @@ while (mainmenu)
             {
                 Console.WriteLine("-------------------------------------------------");
                 Console.WriteLine("Please select the district you would like to view: \n");
-                for (int i = 0; i < Metropolis.Count; i++)
+                
+                for (int i = 0; i < Riga.Count; i++)
                 {
-                    Console.WriteLine($"{i + 1}. {Metropolis[i].Title}");
+                    Console.WriteLine($"{i + 1}. {Riga[i].Title}");
                 }
                 bool Distmenu = true;
                 int.TryParse(Console.ReadLine(), out int DistrictChoice);
                 do
                 {
-                    Metropolis[DistrictChoice - 1].DistrictMenu();
+                    Riga[DistrictChoice - 1].DistrictMenu();
 
                     char.TryParse(Console.ReadLine(), out char menuItem);
                     menuItem = char.ToUpper(menuItem);
 
+                    int DistrictID = Riga[DistrictChoice - 1].DistrictID;
+                    var Everyone = personManager.GetAllPeopleinDistrict(DistrictID).ToList();
+
+                    var Hero = personManager.GetAllPeopleinDistrictbyType(DistrictID, "Hero").ToList();
+                    List<Hero> DistrictHeroes = Hero.OfType<Hero>().ToList();
+                    var Villian = personManager.GetAllPeopleinDistrictbyType(DistrictID, "Villian").ToList();
+                    List<Villian> DistrictVillianes = Villian.OfType<Villian>().ToList();
+
                     switch (menuItem)
                     {
                         case 'D':
-                            Metropolis[DistrictChoice - 1].PrintCityInfo();
-                            Console.WriteLine($"\nThe avarage lvl of heros in the district {Metropolis[DistrictChoice - 1].Title} is: {Metropolis[DistrictChoice - 1].CalculateLVLavarage()}");
-                            Metropolis[DistrictChoice - 1].MaxHeroandVillianLVL();
-                            Metropolis[DistrictChoice - 1].CrimeTimeCalculator();
+                            Riga[DistrictChoice - 1].PrintCityInfo();
+                            Riga[DistrictChoice - 1].PrintListOfHeroes(DistrictHeroes);
+                            Riga[DistrictChoice - 1].PrintListOfVillians(DistrictVillianes);
+                            Console.WriteLine($"\nThe avarage lvl of heros in the district {Riga[DistrictChoice - 1].Title} is: {Riga[DistrictChoice - 1].CalculateLVLavarage(Hero)}");
+                            Riga[DistrictChoice - 1].MaxHeroandVillianLVL(DistrictHeroes, DistrictVillianes);
+                            Riga[DistrictChoice - 1].CrimeTimeCalculator(DistrictVillianes);
                             break;
 
                         case 'N':
@@ -205,30 +244,30 @@ while (mainmenu)
                             Console.WriteLine("Which hero would you like to add: ");
                             for (int i = 0; i < HeroAccademia.Count; i++)
                             {
-                                Console.WriteLine($"{i + 1}. {HeroAccademia[i].Nickname}");
+                                Console.WriteLine($"{i + 1}. {HeroAccademia[i].PersonNickname}");
                             }
                             int.TryParse(Console.ReadLine(), out int addedhero);
 
-                            Metropolis[DistrictChoice - 1].addHero(HeroAccademia[addedhero - 1]);
-                            Console.WriteLine($"SuperHero has been added to {Metropolis[DistrictChoice - 1].Title}");
+                            //Riga[DistrictChoice - 1].AddHero(HeroAccademia[addedhero - 1]);
+                            //Console.WriteLine($"SuperHero has been added to {Riga[DistrictChoice - 1].Title}");
                             break;
                         case 'V':
                             Console.WriteLine("Which hero would you like to add: ");
                             for (int i = 0; i < VillainLigue.Count; i++)
                             {
-                                Console.WriteLine($"{i + 1}. {VillainLigue[i].Nickname}");
+                                Console.WriteLine($"{i + 1}. {VillainLigue[i].PersonNickname}");
                             }
                             int.TryParse(Console.ReadLine(), out int addedvillain);
 
-                            Metropolis[DistrictChoice - 1].addVillian(VillainLigue[addedvillain - 1]);
-                            Console.WriteLine($"SuperHero has been added to {Metropolis[DistrictChoice - 1].Title}");
+                            //Riga[DistrictChoice - 1].AddVillian(VillainLigue[addedvillain - 1]);
+                            //Console.WriteLine($"SuperHero has been added to {Riga[DistrictChoice - 1].Title}");
                             break;
 
                         case 'S':
-                            Metropolis[DistrictChoice - 1].HeroSearch();
+                            Riga[DistrictChoice - 1].HeroSearch();
                             break;
                         case 'R':
-                            Metropolis[DistrictChoice - 1].removePerson();
+                            Riga[DistrictChoice - 1].RemovePerson();
                             break;
                         case 'L':
                             Distmenu = false;
@@ -246,9 +285,11 @@ while (mainmenu)
         case 4:
                 string districtName = "";
                 float MaxAvrgLVL = 0f;
-                foreach (District district in Metropolis)
+                foreach (District district in Riga)
                 {
-                    float AvrgLVL = district.CalculateLVLavarage();
+                    int DistrictID = district.DistrictID;
+                    List<Person> HeroinDistrict = personManager.GetAllPeopleinDistrictbyType(DistrictID, "Hero").ToList();
+                float AvrgLVL = district.CalculateLVLavarage(HeroinDistrict);
                     if (AvrgLVL > MaxAvrgLVL)
                     {
                         MaxAvrgLVL = AvrgLVL;

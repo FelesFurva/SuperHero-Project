@@ -6,38 +6,23 @@ using System.Threading.Tasks;
 
 namespace SuperHero_Project
 {
-    internal class SuperHero : SuperHuman
+    internal class Hero : Person
     {
         public int HeroID { get; set; }
-        public string GoodEvil { get; set; }
-        public int DeedTime { get; set; }
+        public int DeedCount { get; set; }
 
 
-        public SuperHero()
-        {
-
-            GoodEvil = "We have yet to see";
-            DeedTime = 0;
-
-        }
-
-        public SuperHero(string Name,
+        public Hero(string Name,
                          string Surname,
                          string Nickname,
                          int heroID,
-                         char Gender,
                          int Age,
-                         string goodEvil,
-                         int deedTime,
-                         string Powers1,
-                         string Powers2,
-                         string Powers3,
                          double Salary,
-                         int LVL) :base (Name,Surname,Nickname,Gender,Age,Powers1,Powers2,Powers3,Salary,LVL)
+                         int LVL,
+                         string PersonType) :base (Name,Surname,Nickname, Age,Salary,LVL, PersonType)
         {
 
-            GoodEvil = goodEvil;
-            DeedTime = deedTime;
+            
             HeroID = heroID;
 
         }
@@ -49,111 +34,95 @@ namespace SuperHero_Project
             Console.WriteLine($"    HeroID:             {HeroID}");
             Console.WriteLine("   ================================");
             //tells if the hero is evil or not
-            Console.WriteLine($"    {Nickname} is ready to protect the city\n");
-        }
-
-        public void SalaryCalculation()
-        {
-            Console.WriteLine($"Input how many hours {Nickname} spent on task 1:");
-
-            int.TryParse(Console.ReadLine(), out int deedTimeInHours1);
-
-            Console.WriteLine($"Input how many hours {Nickname} spent on task 2:"); ;
-
-            int.TryParse(Console.ReadLine(), out int deedTimeInHours2);
-
-            Console.WriteLine($"Input how many hours {Nickname} spent on task 3:");
-
-            int.TryParse(Console.ReadLine(), out int deedTimeInHours3);
-
-            int TotalDeedTime = deedTimeInHours1 + deedTimeInHours2 + deedTimeInHours3;
-
-            int avgdeedtime = TotalDeedTime / 3;
-
-            DeedTime += TotalDeedTime;
-
-            Console.WriteLine("Input hourly rate:");
-            int.TryParse(Console.ReadLine(), out int hourlyrate);
-
-            double dailysalary;
-            double monthlySalary;
-
-            Console.WriteLine($"    On avarage it takes {Nickname} {avgdeedtime} hours to complete a task");
-            Console.WriteLine($"    {Nickname} spent {DeedTime} hours working");
-
-            if (DeedTime <= 8)
-            {
-                dailysalary = DeedTime * hourlyrate;
-
-                Console.WriteLine(value: $"    {Nickname} earned {dailysalary} today");
-                monthlySalary = dailysalary * 30;
-
-                Console.WriteLine(value: $"    {Nickname} monthly salary would be {monthlySalary}");
-                Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-                Salary += monthlySalary;
-            }
-            if (DeedTime > 8)
-            {
-                dailysalary = ((8 * hourlyrate) + ((DeedTime - 8) * 15));
-
-                Console.WriteLine(value: $"    {Nickname} earned {dailysalary} today");
-                monthlySalary = dailysalary * 30;
-
-                Console.WriteLine(value: $"    {Nickname} monthly salary would be {monthlySalary}");
-                Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-                Salary += monthlySalary;
-            }
+            Console.WriteLine($"    {PersonNickname} is ready to protect the city\n");
         }
 
         public void HeroIndexMenu()
         {
             Console.WriteLine("-------------------------------------------------");
             Console.WriteLine("What would you like to do?\n");
-            Console.WriteLine($"1. View {Nickname} hero card");
-            Console.WriteLine($"2. Calculate {Nickname} salary");
-            Console.WriteLine($"3. Calculate {Nickname} level");
-            Console.WriteLine($"4. Rate {Nickname} performance");
-            Console.WriteLine($"5. Calculate the amount of cookies {Nickname} can buy");
-            Console.WriteLine($"6. Delete {Nickname}'s file");
+            Console.WriteLine($"1. View {PersonNickname} hero card");
+            Console.WriteLine($"2. Calculate {PersonNickname} salary");
+            Console.WriteLine($"3. Calculate {PersonNickname} level");
+            Console.WriteLine($"4. Rate {PersonNickname} performance");
+            Console.WriteLine($"5. Calculate the amount of cookies {PersonNickname} can buy");
+            Console.WriteLine($"6. Delete {PersonNickname}'s file");
             Console.WriteLine("7. Go back to Hero List.");
             Console.WriteLine("8. Go back to main menu");
         }
 
-        //Method calculates the level of the super human, depending on deed time
-        public void CalculateLevel()
+        public void SalaryCalculation(int DeedCount)
         {
-            if (DeedTime <= 20)
+            Console.WriteLine("Input payment amount for 1 deed:");
+            int.TryParse(Console.ReadLine(), out int hourlyrate);
+
+            double dailysalary;
+            double monthlySalary;
+
+            Console.WriteLine($"    {PersonNickname} has completed {DeedCount} deeds");
+
+            if (DeedCount <= 4)
             {
-                LVL = 1;
+                dailysalary = DeedCount * hourlyrate;
+
+                Console.WriteLine(value: $"    {PersonNickname} earned {dailysalary} today");
+                monthlySalary = dailysalary * 30;
+
+                Console.WriteLine(value: $"    {PersonNickname} monthly salary would be {monthlySalary}");
                 Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-                Console.WriteLine($"  {Nickname} current level is 1");
+                PersonSalary += monthlySalary;
+            }
+            if (DeedCount > 4)
+            {
+                dailysalary = ((8 * hourlyrate) + ((DeedCount - 8) * 15));
+
+                Console.WriteLine(value: $"    {PersonNickname} earned {dailysalary} today");
+                monthlySalary = dailysalary * 30;
+
+                Console.WriteLine(value: $"  If {PersonNickname} works at this rate their monthly salary would be {monthlySalary}");
+                Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                PersonSalary += monthlySalary;
+            }
+        }
+
+
+
+        //Method calculates the level of the super human, depending on deed time
+        public void CalculateLevel(int DeedCount)
+        {
+           
+            if (DeedCount <= 3)
+            {
+                PersonLVL = 1;
+                Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                Console.WriteLine($"  {PersonNickname} current level is 1");
                 Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             }
-            else if (DeedTime > 20 && DeedTime < 40)
+            else if (DeedCount > 3 && DeedCount < 5)
             {
-                LVL = 2;
+                PersonLVL = 2;
                 Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-                Console.WriteLine($"  {Nickname} current hero level is 2");
+                Console.WriteLine($"  {PersonNickname} current hero level is 2");
                 Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             }
-            else if (DeedTime >= 40)
+            else if (DeedCount >= 5)
             {
-                LVL = 3;
+                PersonLVL = 3;
                 Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-                Console.WriteLine($"  {Nickname} current hero level is 3");
+                Console.WriteLine($"  {PersonNickname} current hero level is 3");
                 Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             }
         }
 
         public void FinancialInfo()
         {
-            double money = Salary;
+            double money = PersonSalary;
             double cookieCost = 1.29;
             double boughtCookies = Math.Floor(money / cookieCost);
 
             Console.WriteLine(" ************** FINANCIAL INFO **************");
-            Console.WriteLine($"    {Nickname} has {money} in his account \n");
-            Console.WriteLine($"    {Nickname} can buy {boughtCookies} cookies \n");
+            Console.WriteLine($"    {PersonNickname} has {money} in his account \n");
+            Console.WriteLine($"    {PersonNickname} can buy {boughtCookies} cookies \n");
         }
 
         public void GivingHeroMarks()
@@ -192,7 +161,7 @@ namespace SuperHero_Project
                     break;
             }
         }
-        public void createHero()
+        public void CreateHero()
         {
             Console.WriteLine("Please enter the super hero's name:");
             string HeroName = Console.ReadLine();
@@ -206,9 +175,6 @@ namespace SuperHero_Project
             Console.WriteLine("Please enter the super hero's ID:");
             int.TryParse(Console.ReadLine(), out int HeroID);
 
-            Console.WriteLine("Please enter the super hero's Gender:");
-            char.TryParse(Console.ReadLine(), out char HeroGender);
-
             Console.WriteLine("Please enter the super hero's Age:");
             int.TryParse(Console.ReadLine(), out int HeroAge);
 
@@ -220,29 +186,29 @@ namespace SuperHero_Project
             string HeroPower2 = Console.ReadLine();
             string HeroPower3 = Console.ReadLine();
 
+            List<string> HeroPowers = new List<string>();
+            HeroPowers.Add(HeroPower1);
+            HeroPowers.Add(HeroPower2);
+            HeroPowers.Add(HeroPower3);
+
             Console.WriteLine("Please enter the super hero's Salary:");
             double.TryParse(Console.ReadLine(), out double HeroSalary);
 
             Console.WriteLine("Please enter the hero LVL");
             int.TryParse(Console.ReadLine(), out int lVL);
 
-            Console.WriteLine("Is it a Hero - 0 or a Villian - 1?(don't worry, they won't know you told us)");
-            string evilGood = Console.ReadLine();
+            Console.WriteLine("Is it a Hero or a Villian?(don't worry, they won't know you told us)");
+            string personType = Console.ReadLine();
 
 
-            SuperHero NewHero = new(HeroName,
+            Hero NewHero = new(HeroName,
                                     HeroSurname,
                                     HeroNickanme,
                                     HeroID,
-                                    HeroGender,
                                     HeroAge,
-                                    evilGood,
-                                    HeroDeedTime,
-                                    HeroPower1,
-                                    HeroPower2,
-                                    HeroPower3,
                                     HeroSalary,
-                                    lVL);
+                                    lVL,
+                                    personType);
         }
 
     }
