@@ -2,7 +2,7 @@
 //works fine for now
 namespace SuperHero_Project
 {
-    internal class PowersManager
+    public class PowersManager
     {
         private DBConnection Connection;
 
@@ -37,6 +37,29 @@ namespace SuperHero_Project
                 Console.WriteLine("Error: " + e.Message);
             }
             return HeroPowers;
+        }
+
+        public void AddAllPowers()
+        {
+
+            List<SuperPowers> superPowers = new List<SuperPowers>();
+ 
+
+            try
+            {
+                foreach (var superPower in superPowers)
+                {
+                    string query = $"INSERT INTO SuperPower (PowerName,PowerDescription,PersonID) VALUES('{superPower.PowerName}', '{superPower.PowerDescription}', '{superPower.PersonID}'); ";
+                    SqlCommand cmd = new SqlCommand(query, Connection.Conn);
+                    var number = cmd.ExecuteNonQuery();
+                    Console.WriteLine("Rows affected : " + number);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error: " + e.Message);
+            }
+
         }
 
         

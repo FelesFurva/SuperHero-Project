@@ -5,35 +5,6 @@ using System.Data.SqlClient;
 bool mainmenu = true;
 bool menu1 = true;
 
-List<string> PowersSuperCat = new List<string>();
-PowersSuperCat.Add("has 9 lives");
-PowersSuperCat.Add("can fight lazer pointers");
-PowersSuperCat.Add("walks without making a sound");
-List<string> PowersDogMan = new List<string>();
-PowersSuperCat.Add("A true Bro");
-PowersSuperCat.Add("will find anyting by scent");
-PowersSuperCat.Add("runs fast!");
-List<string> PowersTestPersone = new List<string>();
-PowersSuperCat.Add("always happy to help");
-PowersSuperCat.Add("can be the best to test");
-PowersSuperCat.Add("here and back again");
-List<string> PowersSecrete = new List<string>();
-PowersSuperCat.Add("covered in shadows");
-PowersSuperCat.Add("moves silently");
-PowersSuperCat.Add("always in a scarf");
-List<string> PowersBear = new List<string>();
-PowersSuperCat.Add("is adorable");
-PowersSuperCat.Add("extra strong");
-PowersSuperCat.Add("thick skin");
-List<string> PowersManBat = new List<string>();
-PowersSuperCat.Add("money");
-PowersSuperCat.Add("graping hook");
-PowersSuperCat.Add("detective work");
-List<string> PowersCapedBaldy = new List<string>();
-PowersSuperCat.Add("Supernatural Reflexes and Senses");
-PowersSuperCat.Add("Invulnerability");
-PowersSuperCat.Add("Punches really hard");
-
 List<string> PowersGalBot = new();
 PowersGalBot.Add("Insults");
 PowersGalBot.Add("Evil eye");
@@ -48,8 +19,8 @@ PowersRakoon.Add("Grauwl");
 
 
 DBConnection dBConnection = new DBConnection();
-PersonManager personManager = new PersonManager(dBConnection);
 PowersManager powersManager = new PowersManager(dBConnection);
+PersonManager personManager = new PersonManager(dBConnection, powersManager);
 DistrictManager districtManager = new DistrictManager(dBConnection, personManager);
 
 var Riga = districtManager.GetAllDistricts();
@@ -60,9 +31,6 @@ List<Hero> HeroAccademia = AllHeros.OfType<Hero>().ToList();
 
 var AllVillians = personManager.GetAllHerosorVillains("Villian");
 List<Villian> VillainLigue = AllVillians.OfType<Villian>().ToList();
-
-
- 
 
 Console.WriteLine("Wellcome to the SuperHero application \n");
 while (mainmenu)
@@ -248,8 +216,7 @@ while (mainmenu)
                             }
                             int.TryParse(Console.ReadLine(), out int addedhero);
 
-                            //Riga[DistrictChoice - 1].AddHero(HeroAccademia[addedhero - 1]);
-                            //Console.WriteLine($"SuperHero has been added to {Riga[DistrictChoice - 1].Title}");
+                            personManager.InsertIntoDistrict(Riga[DistrictChoice - 1].DistrictID, HeroAccademia[addedhero - 1].HeroID);
                             break;
                         case 'V':
                             Console.WriteLine("Which hero would you like to add: ");
@@ -259,8 +226,7 @@ while (mainmenu)
                             }
                             int.TryParse(Console.ReadLine(), out int addedvillain);
 
-                            //Riga[DistrictChoice - 1].AddVillian(VillainLigue[addedvillain - 1]);
-                            //Console.WriteLine($"SuperHero has been added to {Riga[DistrictChoice - 1].Title}");
+                            personManager.InsertIntoDistrict(Riga[DistrictChoice - 1].DistrictID, VillainLigue[addedvillain - 1].VillainID);
                             break;
 
                         case 'S':

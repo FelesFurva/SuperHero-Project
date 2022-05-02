@@ -10,10 +10,12 @@ namespace SuperHero_Project
     public class PersonManager
     {
         private DBConnection Connection;
+        private PowersManager PowersManager;
 
-        public PersonManager(DBConnection connection)
+        public PersonManager(DBConnection connection, PowersManager powersManager)
         {
             Connection = connection;
+            PowersManager = powersManager;
         }
 
         public List<Person> GetAllPeopleinDistrict(int DistritcID)
@@ -154,11 +156,67 @@ namespace SuperHero_Project
             return AllHeros;
         }
 
+        public bool InsertIntoDistrict(int DistrictID, int PersonID)
+        {
+            string query2 = $"UPDATE Person SET DistrictID='{DistrictID}' WHERE PersonID={PersonID}";
+            try
+            {
+                SqlCommand cmd = new SqlCommand(query2, Connection.Conn);
+                var number = cmd.ExecuteNonQuery();
+                if (number > 0)
+                {
+                    int districtID = DistrictID;
+                    return true;
+                }
+                Console.WriteLine("InsertIntoDistrict command executed");
+            }
+            catch (Exception e)
+            {
+
+                Console.WriteLine("Error: " + e.Message);
+            }
+            return false;
+        }
+
         public void AutoAddHeros()
         {
+            Console.WriteLine("Please enter the super hero's name:");
+            string HeroName = Console.ReadLine();
 
+            Console.WriteLine("Please enter the super hero's Surnamename:");
+            string HeroSurname = Console.ReadLine();
+
+            Console.WriteLine("Please enter the super hero's Nickname:");
+            string HeroNickanme = Console.ReadLine();
+
+            Console.WriteLine("Please enter the super hero's ID:");
+            int.TryParse(Console.ReadLine(), out int HeroID);
+
+            Console.WriteLine("Please enter the super hero's Age:");
+            int.TryParse(Console.ReadLine(), out int HeroAge);
+
+            Console.WriteLine("Please enter the super hero's Deed Time:");
+            int.TryParse(Console.ReadLine(), out int HeroDeedTime);
+
+            Console.WriteLine("Please enter the super hero's Salary:");
+            double.TryParse(Console.ReadLine(), out double HeroSalary);
+
+            Console.WriteLine("Please enter the hero LVL");
+            int.TryParse(Console.ReadLine(), out int lVL);
+
+            string personType = "Hero";
+
+
+            Person NewHero = new(HeroName,
+                                    HeroSurname,
+                                    HeroNickanme,
+                                    HeroAge,
+                                    HeroSalary,
+                                    lVL,
+                                    personType);
 
             List<Person> heroes = new List<Person>();
+            heroes.Add(NewHero);
 
             try
             {
@@ -174,8 +232,6 @@ namespace SuperHero_Project
             {
                 Console.WriteLine("Error: " + e.Message);
             }
-           
-
 
         }
 
