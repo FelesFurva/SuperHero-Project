@@ -233,7 +233,7 @@ while (mainmenu)
                             Riga[DistrictChoice - 1].HeroSearch();
                             break;
                         case 'R':
-                            Riga[DistrictChoice - 1].RemovePerson();
+                            Riga[DistrictChoice - 1].RemovePerson(); //not working yet
                             break;
                         case 'L':
                             Distmenu = false;
