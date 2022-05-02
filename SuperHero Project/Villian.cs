@@ -55,47 +55,33 @@ namespace SuperHero_Project
             Console.WriteLine("6. Go back to main menu");
         }
 
-        public void CalculationCrimeTime()
+        public void CalculationCrimeTime(int CrimeCount)
         {
-            Console.WriteLine($"Input how many hours {PersonNickname} spent on task 1:");
+            Console.WriteLine($"Input how much money did {PersonNickname} steal:");
 
-            int.TryParse(Console.ReadLine(), out int crimetime1);
+            int.TryParse(Console.ReadLine(), out int stolencash);
 
-            Console.WriteLine($"Input how many hours {PersonNickname} spent on task 2:"); ;
-
-            int.TryParse(Console.ReadLine(), out int crimetime2);
-
-            Console.WriteLine($"Input how many hours {PersonNickname} spent on task 3:");
-
-            int.TryParse(Console.ReadLine(), out int crimetime3);
-
-            int TotalCrimeTime = crimetime1 + crimetime2 + crimetime3;
-
-            int avgdeedtime = TotalCrimeTime / 3;
-
-            CrimeCount += TotalCrimeTime;
-
-            Console.WriteLine($"{PersonNickname} spent {CrimeCount} hours doing crimes");
-            Console.WriteLine($"Today, the varage crime rate is: {avgdeedtime} hours");
+            Console.WriteLine($"{PersonNickname} commited {CrimeCount} crimes");
+            Console.WriteLine($"Today, {PersonNickname} stole {stolencash} ");
         }
 
-        public void CalculateVillainLvl()
+        public void CalculateVillainLvl(int CrimeCount)
         {
-            if (CrimeCount <= 20)
+            if (CrimeCount <= 2)
             {
                 PersonLVL = 1;
                 Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                 Console.WriteLine($"  {PersonNickname} current level is 1");
                 Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             }
-            else if (CrimeCount > 20 && CrimeCount < 40)
+            else if (CrimeCount > 2 && CrimeCount < 4)
             {
                 PersonLVL = 2;
                 Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                 Console.WriteLine($"  {PersonNickname} current hero level is 2");
                 Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             }
-            else if (CrimeCount >= 40)
+            else if (CrimeCount >= 4)
             {
                 PersonLVL = 3;
                 Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");

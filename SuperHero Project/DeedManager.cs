@@ -16,7 +16,7 @@ namespace SuperHero_Project
             string query2 = $"Select d.DeedID, d.PeopleAffected, d.DistrictID, d.PowerID from Deed d " +
                 $"Join SuperPower sp on d.PowerID = sp.PowerID " +
                 $"Join Person p on sp.PersonID = p.PersonID where p.PersonID = '{PersonID}'";
-            List<Deed> HeroDeeds = new List<Deed>();
+            List<Deed> Actions = new List<Deed>();
             try
             {
                 SqlCommand cmd = new SqlCommand(query2, Connection.Conn);
@@ -28,7 +28,7 @@ namespace SuperHero_Project
                         int PeopleAffected = Convert.ToInt32(reader["PeopleAffected"]);
                         int PowerID = Convert.ToInt32(reader["PowerID"]);
                         var deed = new Deed(DeedID, PeopleAffected, PowerID);
-                        HeroDeeds.Add(deed);
+                        Actions.Add(deed);
 
                     }
                     reader.Close();
@@ -39,7 +39,7 @@ namespace SuperHero_Project
 
                 Console.WriteLine("Error: " + e.Message);
             }
-            return HeroDeeds;
+            return Actions;
         }
 
     }

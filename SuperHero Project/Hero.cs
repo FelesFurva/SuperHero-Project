@@ -86,7 +86,6 @@ namespace SuperHero_Project
         }
 
 
-
         //Method calculates the level of the super human, depending on deed time
         public void CalculateLevel(int DeedCount)
         {
@@ -160,55 +159,6 @@ namespace SuperHero_Project
                     Console.WriteLine("No one can be that bad!");
                     break;
             }
-        }
-        public void CreateHero()
-        {
-            Console.WriteLine("Please enter the super hero's name:");
-            string HeroName = Console.ReadLine();
-
-            Console.WriteLine("Please enter the super hero's Surnamename:");
-            string HeroSurname = Console.ReadLine();
-
-            Console.WriteLine("Please enter the super hero's Nickname:");
-            string HeroNickanme = Console.ReadLine();
-
-            Console.WriteLine("Please enter the super hero's ID:");
-            int.TryParse(Console.ReadLine(), out int HeroID);
-
-            Console.WriteLine("Please enter the super hero's Age:");
-            int.TryParse(Console.ReadLine(), out int HeroAge);
-
-            Console.WriteLine("Please enter the super hero's Deed Time:");
-            int.TryParse(Console.ReadLine(), out int HeroDeedTime);
-
-            Console.WriteLine("Please enter super hero's 3 super powers:");
-            string HeroPower1 = Console.ReadLine();
-            string HeroPower2 = Console.ReadLine();
-            string HeroPower3 = Console.ReadLine();
-
-            List<string> HeroPowers = new List<string>();
-            HeroPowers.Add(HeroPower1);
-            HeroPowers.Add(HeroPower2);
-            HeroPowers.Add(HeroPower3);
-
-            Console.WriteLine("Please enter the super hero's Salary:");
-            double.TryParse(Console.ReadLine(), out double HeroSalary);
-
-            Console.WriteLine("Please enter the hero LVL");
-            int.TryParse(Console.ReadLine(), out int lVL);
-
-            Console.WriteLine("Is it a Hero or a Villian?(don't worry, they won't know you told us)");
-            string personType = Console.ReadLine();
-
-
-            Hero NewHero = new(HeroName,
-                                    HeroSurname,
-                                    HeroNickanme,
-                                    HeroID,
-                                    HeroAge,
-                                    HeroSalary,
-                                    lVL,
-                                    personType);
         }
 
     }

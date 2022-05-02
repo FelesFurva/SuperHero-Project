@@ -119,6 +119,13 @@ while (mainmenu)
                     VillainLigue[VilIndex - 1].VillianIndeMenu();
                     int.TryParse(Console.ReadLine(), out int userChoice2);
 
+                    DeedManager deedManager = new DeedManager(dBConnection);
+                    int CrimeCount = 0;
+                    List<Deed> Crimes = deedManager.GetDeedbyID(VillainLigue[VilIndex - 1].VillainID);
+                    foreach (var crime in Crimes)
+                    {
+                        CrimeCount++;
+                    }
                     switch (userChoice2)
                     {
                         case 1:
@@ -131,10 +138,10 @@ while (mainmenu)
                             }
                             break;
                         case 2:
-                            VillainLigue[VilIndex - 1].CalculateVillainLvl();
+                            VillainLigue[VilIndex - 1].CalculateVillainLvl(CrimeCount);
                             break;
                         case 3:
-                            VillainLigue[VilIndex - 1].CalculationCrimeTime();
+                            VillainLigue[VilIndex - 1].CalculationCrimeTime(CrimeCount);
                             break;
                         case 4:
                             //Purvciems.RemoveVillian(VilIndex - 1);
