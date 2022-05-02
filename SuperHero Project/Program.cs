@@ -5,19 +5,6 @@ using System.Data.SqlClient;
 bool mainmenu = true;
 bool menu1 = true;
 
-List<string> PowersGalBot = new();
-PowersGalBot.Add("Insults");
-PowersGalBot.Add("Evil eye");
-PowersGalBot.Add("Spooky haul");
-List<string> PowersRakoon = new List<string>();
-PowersRakoon.Add("Trash attack");
-PowersRakoon.Add("Flipping birds");
-PowersRakoon.Add("Grauwl");
-
-//Villian GalBot = new("Ricky", "Hart", "GalBot", 2, 25, "Villian", 17, PowersGalBot, 700, 1);
-//Villian Rakoon = new("Mark", "Brown", "Rakoon", 3, 20, "Villian", 21, PowersRakoon, 500, 2);
-
-
 DBConnection dBConnection = new DBConnection();
 PowersManager powersManager = new PowersManager(dBConnection);
 PersonManager personManager = new PersonManager(dBConnection, powersManager);
